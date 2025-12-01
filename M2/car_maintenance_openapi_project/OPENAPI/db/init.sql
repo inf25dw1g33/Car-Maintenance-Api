@@ -24,6 +24,14 @@ CREATE TABLE service_types (
   description VARCHAR(255)
 );
 
+CREATE TABLE mechanics (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  specialization VARCHAR(100),
+  phone VARCHAR(30),
+  email VARCHAR(100) UNIQUE
+);
+
 CREATE TABLE service_records (
   id INT AUTO_INCREMENT PRIMARY KEY,
   vehicle_id INT NOT NULL,
@@ -34,6 +42,15 @@ CREATE TABLE service_records (
   notes TEXT,
   FOREIGN KEY (vehicle_id) REFERENCES vehicles(id),
   FOREIGN KEY (service_type_id) REFERENCES service_types(id)
+);
+
+-- Tabela associativa para relação M:N entre service_records e mechanics
+CREATE TABLE service_record_mechanics (
+  service_record_id INT NOT NULL,
+  mechanic_id INT NOT NULL,
+  PRIMARY KEY (service_record_id, mechanic_id),
+  FOREIGN KEY (service_record_id) REFERENCES service_records(id) ON DELETE CASCADE,
+  FOREIGN KEY (mechanic_id) REFERENCES mechanics(id) ON DELETE CASCADE
 );
 
 -- =============================================
@@ -142,6 +159,41 @@ INSERT INTO service_types (name, description) VALUES
   ('Troca de sensor de estacionamento', 'Substituição de sensores de parking');
 
 -- =============================================
+-- MECHANICS (30 registos)
+-- =============================================
+INSERT INTO mechanics (name, specialization, phone, email) VALUES
+  ('Carlos Ferreira', 'Motor e Transmissão', '+351920000001', 'carlos.ferreira@oficina.pt'),
+  ('António Silva', 'Eletricidade Auto', '+351920000002', 'antonio.silva@oficina.pt'),
+  ('Manuel Costa', 'Suspensão e Direção', '+351920000003', 'manuel.costa@oficina.pt'),
+  ('José Santos', 'Travões e Segurança', '+351920000004', 'jose.santos@oficina.pt'),
+  ('Paulo Oliveira', 'Ar Condicionado', '+351920000005', 'paulo.oliveira@oficina.pt'),
+  ('Rui Pereira', 'Diagnóstico Eletrónico', '+351920000006', 'rui.pereira@oficina.pt'),
+  ('Fernando Martins', 'Mecânica Geral', '+351920000007', 'fernando.martins@oficina.pt'),
+  ('Jorge Almeida', 'Injeção e Combustível', '+351920000008', 'jorge.almeida@oficina.pt'),
+  ('Luís Rodrigues', 'Pneus e Alinhamento', '+351920000009', 'luis.rodrigues@oficina.pt'),
+  ('Miguel Sousa', 'Carroçaria e Pintura', '+351920000010', 'miguel.sousa@oficina.pt'),
+  ('André Gomes', 'Motor Diesel', '+351920000011', 'andre.gomes@oficina.pt'),
+  ('Pedro Fernandes', 'Caixas Automáticas', '+351920000012', 'pedro.fernandes@oficina.pt'),
+  ('Tiago Lopes', 'Híbridos e Elétricos', '+351920000013', 'tiago.lopes@oficina.pt'),
+  ('Bruno Ribeiro', 'Escape e Emissões', '+351920000014', 'bruno.ribeiro@oficina.pt'),
+  ('Ricardo Carvalho', 'Mecânica Geral', '+351920000015', 'ricardo.carvalho@oficina.pt'),
+  ('Hugo Pinto', 'Eletricidade Auto', '+351920000016', 'hugo.pinto@oficina.pt'),
+  ('Nuno Teixeira', 'Motor e Transmissão', '+351920000017', 'nuno.teixeira@oficina.pt'),
+  ('Vítor Moreira', 'Suspensão e Direção', '+351920000018', 'vitor.moreira@oficina.pt'),
+  ('Sérgio Correia', 'Travões e Segurança', '+351920000019', 'sergio.correia@oficina.pt'),
+  ('Marco Mendes', 'Diagnóstico Eletrónico', '+351920000020', 'marco.mendes@oficina.pt'),
+  ('Filipe Nunes', 'Ar Condicionado', '+351920000021', 'filipe.nunes@oficina.pt'),
+  ('Daniel Cardoso', 'Pneus e Alinhamento', '+351920000022', 'daniel.cardoso@oficina.pt'),
+  ('Hélder Araújo', 'Injeção e Combustível', '+351920000023', 'helder.araujo@oficina.pt'),
+  ('Joaquim Machado', 'Mecânica Geral', '+351920000024', 'joaquim.machado@oficina.pt'),
+  ('Alexandre Marques', 'Motor Diesel', '+351920000025', 'alexandre.marques@oficina.pt'),
+  ('Gonçalo Cunha', 'Caixas Automáticas', '+351920000026', 'goncalo.cunha@oficina.pt'),
+  ('Rafael Campos', 'Híbridos e Elétricos', '+351920000027', 'rafael.campos@oficina.pt'),
+  ('Diogo Rocha', 'Carroçaria e Pintura', '+351920000028', 'diogo.rocha@oficina.pt'),
+  ('Fábio Barbosa', 'Escape e Emissões', '+351920000029', 'fabio.barbosa@oficina.pt'),
+  ('Simão Reis', 'Eletricidade Auto', '+351920000030', 'simao.reis@oficina.pt');
+
+-- =============================================
 -- SERVICE RECORDS (35 registos)
 -- =============================================
 INSERT INTO service_records (vehicle_id, service_type_id, service_date, mileage_km, cost, notes) VALUES
@@ -180,3 +232,60 @@ INSERT INTO service_records (vehicle_id, service_type_id, service_date, mileage_
   (20, 2, '2024-03-08', 35000, 380.00, 'Pneus all-season'),
   (21, 18, '2024-06-05', 22000, 50.00, 'Diagnóstico de rotina'),
   (22, 3, '2024-02-14', 48000, 350.00, 'Revisão Porsche');
+
+-- =============================================
+-- SERVICE_RECORD_MECHANICS (relação M:N - 45 registos)
+-- Demonstra que um serviço pode ter vários mecânicos
+-- e um mecânico pode trabalhar em vários serviços
+-- =============================================
+INSERT INTO service_record_mechanics (service_record_id, mechanic_id) VALUES
+  -- Serviço 1 (Mudança óleo): 2 mecânicos
+  (1, 1), (1, 7),
+  -- Serviço 2 (Revisão): 2 mecânicos
+  (2, 7), (2, 15),
+  -- Serviço 3 (Pneus): 2 mecânicos
+  (3, 9), (3, 22),
+  -- Serviço 4 (Inspeção): 1 mecânico
+  (4, 7),
+  -- Serviço 5 (Óleo): 2 mecânicos
+  (5, 1), (5, 8),
+  -- Serviço 6 (Travões): 2 mecânicos
+  (6, 4), (6, 19),
+  -- Serviço 7 (Óleo): 1 mecânico
+  (7, 1),
+  -- Serviço 8 (Inspeção): 1 mecânico
+  (8, 7),
+  -- Serviço 9 (Pneus): 1 mecânico
+  (9, 9),
+  -- Serviço 10 (Revisão): 2 mecânicos
+  (10, 7), (10, 12),
+  -- Serviço 11 (Óleo): 1 mecânico
+  (11, 1),
+  -- Serviço 12 (Embraiagem): 3 mecânicos (trabalho complexo)
+  (12, 1), (12, 12), (12, 17),
+  -- Serviço 13 (Óleo): 2 mecânicos
+  (13, 1), (13, 8),
+  -- Serviço 14 (Travões): 2 mecânicos
+  (14, 4), (14, 19),
+  -- Serviço 15 (Inspeção): 1 mecânico
+  (15, 7),
+  -- Serviço 16 (Óleo): 1 mecânico
+  (16, 1),
+  -- Serviço 17 (AC): 2 mecânicos especialistas AC
+  (17, 5), (17, 21),
+  -- Serviço 18 (Revisão): 2 mecânicos
+  (18, 7), (18, 15),
+  -- Serviço 19 (Bateria): 2 mecânicos eletricistas
+  (19, 2), (19, 16),
+  -- Serviço 20 (Pneus): 2 mecânicos
+  (20, 9), (20, 22),
+  -- Serviço 21 (Óleo): 1 mecânico
+  (21, 1),
+  -- Serviço 22 (Alinhamento): 2 mecânicos
+  (22, 3), (22, 9),
+  -- Serviço 23 (Inspeção): 1 mecânico
+  (23, 7),
+  -- Serviço 24 (Óleo): 1 mecânico
+  (24, 1),
+  -- Serviço 25 (Travões): 2 mecânicos
+  (25, 4), (25, 19);
