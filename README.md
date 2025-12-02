@@ -11,7 +11,7 @@ API REST para gestão de manutenção de automóveis. O sistema permite gerir pr
 ## Organização do Repositório
 
 - O código fonte está na pasta [express-server](./src/express-server/)
-- Os capítulos do relatório estão na pasta [doc](./src/doc/)
+- Os capítulos do relatório estão na pasta [doc](./doc/)
 - O documento OpenAPI está em [express-server/openapi.yaml](./src/express-server/openapi.yaml)
 - A coleção Postman está em [Postman](./src/Postman/)
 - Os scripts da base de dados estão em [db](./src/db/)
@@ -20,7 +20,7 @@ API REST para gestão de manutenção de automóveis. O sistema permite gerir pr
 
 | Swagger UI | Postman Collection |
 |:----------:|:------------------:|
-| ![Swagger](./src/doc/images/swagger.png) | ![Postman](./src/doc/images/postman.png) |
+| ![Swagger](./doc/images/swagger.png) | ![Postman](./doc/images/postman.png) |
 
 ## Tecnologias
 
@@ -33,10 +33,10 @@ API REST para gestão de manutenção de automóveis. O sistema permite gerir pr
 
 ## Relatório
 
-- Capítulo 1: [Apresentação do Projeto](./src/doc/c1.md)
-- Capítulo 2: [Recursos](./src/doc/c2.md)
-- Capítulo 3: [Produto](./src/doc/c3.md)
-- Capítulo 4: [Apresentação](./src/doc/c4.md)
+- Capítulo 1: [Apresentação do Projeto](./doc/c1.md)
+- Capítulo 2: [Recursos](./doc/c2.md)
+- Capítulo 3: [Produto](./doc/c3.md)
+- Capítulo 4: [Apresentação](./doc/c4.md)
 
 ## Equipa
 
