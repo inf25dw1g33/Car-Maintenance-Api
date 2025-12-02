@@ -18,6 +18,8 @@ tags:
     description: Tipos de serviço disponíveis
   - name: Service Records
     description: Registos de manutenção
+  - name: Mechanics
+    description: Gestão de mecânicos
 
 paths:
   /api/owners:
@@ -433,6 +435,210 @@ paths:
         '204':
           description: Registo removido
 
+  # ========== MECHANICS ==========
+  /api/mechanics:
+    get:
+      tags:
+        - Mechanics
+      summary: Lista todos os mecânicos
+      description: Retorna uma lista de mecânicos. Permite filtrar por nome ou especialização.
+      parameters:
+        - name: name
+          in: query
+          description: Filtrar por nome (pesquisa parcial)
+          required: false
+          schema:
+            type: string
+          example: Carlos
+        - name: specialization
+          in: query
+          description: Filtrar por especialização (pesquisa parcial)
+          required: false
+          schema:
+            type: string
+          example: Motor
+      responses:
+        '200':
+          description: Lista de mecânicos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mechanic'
+    post:
+      tags:
+        - Mechanics
+      summary: Cria um novo mecânico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MechanicInput'
+      responses:
+        '201':
+          description: Mecânico criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mechanic'
+
+  /api/mechanics/{id}:
+    get:
+      tags:
+        - Mechanics
+      summary: Obtém um mecânico pelo id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Mecânico encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mechanic'
+        '404':
+          description: Mecânico não encontrado
+    put:
+      tags:
+        - Mechanics
+      summary: Atualiza um mecânico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MechanicInput'
+      responses:
+        '200':
+          description: Mecânico atualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mechanic'
+    delete:
+      tags:
+        - Mechanics
+      summary: Remove um mecânico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Mecânico removido
+
+  /api/mechanics/{id}/service-records:
+    get:
+      tags:
+        - Mechanics
+      summary: Lista os serviços realizados por um mecânico
+      description: Retorna todos os registos de serviço associados a um mecânico (relação M:N)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lista de registos de serviço do mecânico
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceRecord'
+
+  # ========== RELAÇÃO M:N: Service Records <-> Mechanics ==========
+  /api/service-records/{serviceRecordId}/mechanics:
+    get:
+      tags:
+        - Service Records
+      summary: Lista os mecânicos de um registo de serviço
+      description: Retorna todos os mecânicos associados a um registo de serviço (relação M:N)
+      parameters:
+        - name: serviceRecordId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lista de mecânicos do serviço
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mechanic'
+
+  /api/service-records/{serviceRecordId}/mechanics/{mechanicId}:
+    post:
+      tags:
+        - Service Records
+      summary: Atribui um mecânico a um registo de serviço
+      description: Cria uma associação entre um mecânico e um registo de serviço (relação M:N)
+      parameters:
+        - name: serviceRecordId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: mechanicId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '201':
+          description: Mecânico atribuído ao serviço
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  service_record_id:
+                    type: integer
+                  mechanic_id:
+                    type: integer
+        '409':
+          description: Mecânico já está atribuído a este serviço
+    delete:
+      tags:
+        - Service Records
+      summary: Remove um mecânico de um registo de serviço
+      description: Remove a associação entre um mecânico e um registo de serviço (relação M:N)
+      parameters:
+        - name: serviceRecordId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: mechanicId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Mecânico removido do serviço
+        '404':
+          description: Relação não encontrada
+
 components:
   schemas:
     Owner:
@@ -559,3 +765,36 @@ components:
           format: float
         notes:
           type: string
+
+    Mechanic:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          example: Carlos Mendes
+        specialization:
+          type: string
+          example: Motor e Mecânica Geral
+        phone:
+          type: string
+          example: "+351920000001"
+        email:
+          type: string
+          format: email
+          example: carlos.mendes@oficina.pt
+    MechanicInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        specialization:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+          format: email

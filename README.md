@@ -1,56 +1,45 @@
-# My work assignment Title
+# Car Maintenance API
 
-Repository to host the project developed for 'some class', a n^th^ year subject at SOMESCHOOL. Developed by Group ALPHA : [@MarcoOliveira](https://github.com/marcoamarooliveira), [add others].
+Repositório para o trabalho prático desenvolvido para a disciplina de **Desenvolvimento Web I**, do 1º ano da Licenciatura em Informática na **Universidade da Maia (UMAIA)**.
 
-## Short theme description
+**Grupo 33**: [@GoncaloCidras](https://github.com/devCidras), [@JorgeEspogeira](https://github.com/JorgeEspogeira), [@CesarRamos](https://github.com/devCesarRamos)
 
-An example report using markdown on Github. This documentation is writen using [Markdown](https://www.markdownguide.org/). Here is a [link to the basic syntax](https://www.markdownguide.org/basic-syntax), but an [extended syntax](https://www.markdownguide.org/extended-syntax/) is also available. If you're starting with Markdown, you may want to try a [Markdown Tutorial](https://www.markdowntutorial.com/) and read the [getting started](https://www.markdownguide.org/getting-started/) section.
+## Descrição
 
-## Repository organization
+API REST para gestão de manutenção de automóveis. O sistema permite gerir proprietários, veículos, tipos de serviço, registos de manutenção e mecânicos.
 
-_Please help reader navigate around describing how the repository is organized by providing links_
-* **Source code** is in the [src folder](src/).
-* Report chapters are in [doc folder](doc/).
-* Initial [OpenApi document](api/openapi.yaml)
+## Organização do Repositório
 
-## Gallery
+- O código fonte está na pasta [express-server](express-server/)
+- Os capítulos do relatório estão na pasta [doc](doc/)
+- O documento OpenAPI está em [express-server/openapi.yaml](express-server/openapi.yaml)
+- A coleção Postman está em [Postman](Postman/)
+- Os scripts da base de dados estão em [db](db/)
 
-_Please provide a galery of the final result, with small images_
-A [table](https://www.markdownguide.org/extended-syntax/#tables) may be usefull to organize the images.
+## Galeria
 
-## Technologies
+| Swagger UI | Postman Collection |
+|:----------:|:------------------:|
+| ![Swagger](doc/images/swagger.png) | ![Postman](doc/images/postman.png) |
 
-_Indicate the technologies you have used in this assignment. Please provide links for the user to read more about those technologies._
-* [XML](https://www.w3.org/XML/)
-* [HTML5](https://html.spec.whatwg.org/multipage/) + [CSS3](https://www.w3.org/Style/CSS/)
-* [Javascript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript)
-* [PHP](https://www.php.net/)
-* [nodeJS](https://nodejs.org/en/)
-* _Any other?_
+## Tecnologias
 
-### Frameworks and Libraries
+- [Docker](https://www.docker.com/) - Plataforma de contentorização
+- [Node.js](https://nodejs.org/) - Ambiente de execução JavaScript
+- [Express.js](https://expressjs.com/) - Framework web para Node.js
+- [MySQL](https://www.mysql.com/) - Sistema de gestão de base de dados
+- [Swagger UI](https://swagger.io/tools/swagger-ui/) - Documentação interativa da API
+- [Postman](https://www.postman.com/) - Ferramenta para teste de APIs
 
-_Did you use any aditional libraries? Describe them here._
-* Docker
-* Multipass
-* NodeJS
-* JQuery
-* Laravel
-* Bootstrap
-* ReactJS
+## Relatório
 
-## Report
-_Please add at least on section (a file) per Chapter. But you can add more._
+- Capítulo 1: [Apresentação do Projeto](doc/c1.md)
+- Capítulo 2: [Recursos](doc/c2.md)
+- Capítulo 3: [Produto](doc/c3.md)
+- Capítulo 4: [Apresentação](doc/c4.md)
 
-### Project presentation
-* Chapter 1: [Project presentation](doc/c1.md)
-### Resources
-* Chapter 2: [Resources](doc/c2.md)
-### Product
-* Chapter 3: [Product](doc/c3.md)
-### Presentation
-* Chapter 4: [Presentation](doc/c4.md)
+## Equipa
 
-## Team
-* Marco Amaro Oliveira [@MarcoOliveira](https://github.com/marcoamarooliveira)
-* Other team members
+- Gonçalo Cidras [@GoncaloCidras](https://github.com/devCidras)
+- Jorge Espogeira [@JorgeEspogeira](https://github.com/JorgeEspogeira)
+- César Ramos [@CesarRamos](https://github.com/devCesarRamos)

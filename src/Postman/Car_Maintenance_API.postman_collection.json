@@ -8,7 +8,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://localhost:8081"
+      "value": "http://localhost:8080"
     }
   ],
   "item": [
@@ -367,6 +367,128 @@
           "request": {
             "method": "DELETE",
             "url": "{{baseUrl}}/api/service-records/36"
+          }
+        },
+        {
+          "name": "[M:N] Lista mecânicos de um serviço",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/service-records/1/mechanics"
+          }
+        },
+        {
+          "name": "[M:N] Atribui mecânico a um serviço",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/service-records/1/mechanics/5"
+          }
+        },
+        {
+          "name": "[M:N] Remove mecânico de um serviço",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/service-records/1/mechanics/5"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mechanics",
+      "item": [
+        {
+          "name": "Lista todos os mecânicos",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/mechanics"
+          }
+        },
+        {
+          "name": "Filtrar mecânicos por nome",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/mechanics?name=Carlos",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mechanics"],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "Carlos"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filtrar mecânicos por especialização",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/mechanics?specialization=Motor",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "mechanics"],
+              "query": [
+                {
+                  "key": "specialization",
+                  "value": "Motor"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtém mecânico por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/mechanics/1"
+          }
+        },
+        {
+          "name": "Cria novo mecânico",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/mechanics",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Novo Mecânico\",\n  \"specialization\": \"Eletricidade\",\n  \"phone\": \"+351920000099\",\n  \"email\": \"novo.mecanico@oficina.pt\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Atualiza mecânico",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/mechanics/1",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Carlos Mendes Atualizado\",\n  \"specialization\": \"Motor e Diagnóstico\",\n  \"phone\": \"+351920000001\",\n  \"email\": \"carlos.mendes@oficina.pt\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Remove mecânico",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/mechanics/31"
+          }
+        },
+        {
+          "name": "[M:N] Lista serviços de um mecânico",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/mechanics/1/service-records"
           }
         }
       ]

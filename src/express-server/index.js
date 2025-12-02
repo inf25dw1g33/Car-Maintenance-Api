@@ -8,6 +8,7 @@ const ownerRoutes = require('./api/owners');
 const vehicleRoutes = require('./api/vehicles');
 const serviceTypeRoutes = require('./api/serviceTypes');
 const serviceRecordRoutes = require('./api/serviceRecords');
+const mechanicRoutes = require('./api/mechanics');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -22,6 +23,7 @@ app.use('/api/owners', ownerRoutes);
 app.use('/api/vehicles', vehicleRoutes);
 app.use('/api/service-types', serviceTypeRoutes);
 app.use('/api/service-records', serviceRecordRoutes);
+app.use('/api/mechanics', mechanicRoutes);
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
